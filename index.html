@@ -5,15 +5,22 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
 <title>The Game Lab</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<p>Linking your Roblox account…</p>
+<h1>The Game Lab</h1>
+<p id="status">Roblox account linking for The Game Lab Discord store.</p>
+<p><a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a></p>
 <script>
 // Forwards the Roblox OAuth response to The Game Lab bot. Holds no secrets.
 var allowed = ['code', 'state', 'error', 'error_description'];
 var source = new URLSearchParams(location.search), forward = new URLSearchParams();
 allowed.forEach(function (key) { if (source.has(key)) forward.set(key, source.get(key)); });
-location.replace('https://the-game-lab.the-game-lab-worker.workers.dev/oauth/callback?' + forward.toString());
+if (forward.has('state')) {
+  document.getElementById('status').textContent = 'Linking your Roblox account…';
+  location.replace('https://the-game-lab.the-game-lab-worker.workers.dev/oauth/callback?' + forward.toString());
+}
 </script>
 </body>
 </html>
